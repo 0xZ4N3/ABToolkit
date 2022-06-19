@@ -8,9 +8,11 @@ function Invoke-PSDowngrade{
     )
     
     $Bypass = New-Object -TypeName PSObject
-    $Name = "Downgrade de PowerShell"
-    $Description = "Este bypass consiste en usar la versión 2 de PowerShell, la cual no es compatible con AMSI, de tal forma que el contenido no es enviado al proveedor antimalware"
-    $Script = {powershell -v 2}
+    $Name = "Memory Patching (Ofuscated)"
+    $Description = "Este bypass es una versiÃ³n modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria ofuscada de tal forma que no es detectada por Windows Defender"
+    $Script = {
+        
+    }
 
 
     $Bypass | Add-Member -MemberType NoteProperty -Name "Name" -Value $Name
@@ -45,7 +47,7 @@ function Invoke-PSDowngrade{
     }
 
     $Name
-    Write-Host "`n=========Descripción=========="
+    Write-Host "`n=========DescripciÃ³n=========="
     $Description
     Write-Host "`n===========Script============="
     $Script
