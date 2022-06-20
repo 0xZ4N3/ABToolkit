@@ -1,4 +1,4 @@
-function Invoke-PSDowngrade{
+function Invoke-MemoryPatchingOfuscated{
 
     [CmdletBinding()]
     Param(
@@ -8,9 +8,10 @@ function Invoke-PSDowngrade{
     )
     
     $Bypass = New-Object -TypeName PSObject
-    $Name = "Memory Patching (Ofuscated)"
-    $Description = "Este bypass es una versiÃ³n modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria ofuscada de tal forma que no es detectada por Windows Defender"
+    $Name = "Memory Patching Ofuscado"
+    $Description = "Este bypass es una versión modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria."
     $Script = {
+        
         
     }
 
@@ -18,11 +19,12 @@ function Invoke-PSDowngrade{
     $Bypass | Add-Member -MemberType NoteProperty -Name "Name" -Value $Name
     $Bypass | Add-Member -MemberType NoteProperty -Name "Description" -Value $Description
     $Bypass | Add-Member -MemberType NoteProperty -Name "Script" -Value $Script
-    $Bypass | Add-Member -MemberType ScriptMethod -Name RunScript -Value {& $Bypass.Script}
+    $Bypass | Add-Member -MemberType ScriptMethod -Name RunScript -Value {$Bypass.Script | IEX}
 
 
     if($Run){
         $Bypass.RunScript()
+        return
     }
 
     if($Import){
