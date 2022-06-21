@@ -1,4 +1,4 @@
-function Invoke-MemoryPatchingOfuscated{
+function Invoke-MemoryPatchingObfuscated{
 
     [CmdletBinding()]
     Param(
@@ -9,7 +9,7 @@ function Invoke-MemoryPatchingOfuscated{
     
     $Bypass = New-Object -TypeName PSObject
     $Name = "Memory Patching Ofuscado"
-    $Description = "Este bypass es una versiùn modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria."
+    $Description = "Este bypass es una versiÛn modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria."
     $Script = {
         
         ${K`ERNel`32}   =  @"
@@ -101,7 +101,7 @@ ${A} =  0
     $Bypass | Add-Member -MemberType NoteProperty -Name "Name" -Value $Name
     $Bypass | Add-Member -MemberType NoteProperty -Name "Description" -Value $Description
     $Bypass | Add-Member -MemberType NoteProperty -Name "Script" -Value $Script
-    $Bypass | Add-Member -MemberType ScriptMethod -Name RunScript -Value {$Bypass.Script | IEX}
+    $Bypass | Add-Member -MemberType ScriptMethod -Name RunScript -Value {& $Bypass.Script}
 
 
     if($Run){
