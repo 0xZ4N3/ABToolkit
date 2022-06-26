@@ -132,10 +132,10 @@ $a = 0
         return
     }
 
-    $Name
+    Write-Host $Name
     Write-Host "`n=========Descripción=========="
-    $Description
+    Write-Host $Description
     Write-Host "`n===========Script============="
-    $Script
+    Write-Host $Script
 
 }

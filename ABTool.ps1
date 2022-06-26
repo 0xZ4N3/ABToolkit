@@ -1,51 +1,106 @@
 function Invoke-ABT{
-
-
-
     Show-Title
-    
-    
-
-    $Options = @(
-        New-MenuOption -Name "Test" -Action {Write-Host "Funciona!"}
-        New-MenuOption -Name "Test2" -Action {Write-Host "Funciona2!"}
-        )
-    #Show-Menu -Title "Menu Principal" -Options @{"Option1"={Write-Host "1!!"};"Option2"={Write-Host "2!!"}}
-    Show-Menu -Title "Menu Principal" -Options $Options
 
 
+    $Options = [ordered]@{
+        "l" = New-MenuOption -Name "Listar Bypasses" -Action {Show-Bypass}
+        "i" = New-MenuOption -Name "Importar Bypasses" -Action {Import-Bypass}
+        "?" = New-MenuOption -Name "Ayuda" -Action {Show-Help}
+        }
+    Show-Menu -Title "Menu Principal" -Options $Options    
+}
+
+function Show-Bypass{
+
+    $BypassList = (Get-Command -Module ABToolBypass | Select-Object -Property Name).Name
+
+    $Options = [ordered]@{}
+    $i = 0
+    foreach($Bypass in $BypassList){
+        $i++
+        $BypassData = & $Bypass -Import
+        $Name = $BypassData.Name
+        $Action = $BypassData.Script
+        $Option = New-MenuOption -Name $Name -Action $Action
+        $Options.Add("$i",$Option)
+    }
+
+    Show-Menu -Title "Lista de Bypass" -Options $Options -Prompt "ABT\Bypass"
 
 }
+
+function Import-Bypass{
+
+    Import-BypassLocally
+
+}
+
+function Import-BypassLocally{
+    $path = '.\Bypass\ABToolBypass.psm1'
+    if(Test-Path -Path $path -PathType Leaf){
+        Import-Module $path
+    }
+    else{
+        Write-Host "NO EXISTE $path"
+    }
+     
+}
+
+function Show-Help {
+    
+    Write-Host "AYUDA DE LA HERRAMIENTA"
+
+}
+
 
 function Show-Title{
 
     Write-Host "AMSI BYPASS" -ForegroundColor Green
 
 }
+
 function Show-Menu{
     param(
         [String] $Title,
-        [PSObject[]] $Options
+        [hashtable] $Options,
+        [string] $Prompt = "ABT"
     )
-    $exit = $false
-    while(!$exit){
-        Write-Host "$Title`n" -ForegroundColor Yellow
+    $back = $false
+    while(!$back){
+        Write-Host "`n`n$Title`n" -ForegroundColor Yellow
 
-        foreach($Option in $Options){
-            $Name = $Option.Name
-            Write-Host "$($Options.IndexOf($Option) + 1)`)  $Name"
+
+        foreach($Option in $Options.GetEnumerator()){
+            $Value = $Option.Value
+            $Key = $Option.Key
+            $Name = $Option.Value.Name
+            Write-Host "$Key) $Name"
         }
 
-        Write-Host "ABT> " -NoNewline
-        $Value = Read-Host
+        write-host
+
+        $Value = $null
+        while($Value.length -eq 0){
+            Write-Host "$Prompt> " -NoNewline
+            $Value = Read-Host
+        }
         
-        if($Value -eq 'b'){
-            break
+
+        switch ($Value) {
+            "q" { exit }
+            "b" { $back = $true }
+            Default {
+                "Executing $($Options.Get_Item($Value).Name)"
+                $Options.Get_Item($Value).Action}
         }
-            
 
-        ($Options[$Value - 1].Action)
 
+
+        
+        
+        
+
+        
     }
 }
 
@@ -62,3 +117,4 @@ Function New-MenuOption{
 
     return $MenuOption
 }
+
