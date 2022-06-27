@@ -20,7 +20,10 @@ function Invoke-PSDowngrade{
 
 
     if($Run){
+        Write-Host "Ejecutando $Name ..." -ForegroundColor Green
+        Start-Sleep 2
         $Bypass.RunScript()
+        Write-Host "$Name completado!" -ForegroundColor Green
         return
     }
 
@@ -45,10 +48,18 @@ function Invoke-PSDowngrade{
         return
     }
 
-    $Name
-    Write-Host "`n=========Descripción=========="
-    $Description
-    Write-Host "`n===========Script============="
-    $Script
+
+    if($Info){
+        Write-Host $Name -ForegroundColor DarkGreen -BackgroundColor Cyan
+        Write-Host $("=" * $Name.Length) -ForegroundColor Yellow
+        Write-Host $Description -ForegroundColor Blue
+    }
+
+
+    if($Code){
+        Write-Host $Script -ForegroundColor Cyan
+    }
+
+
 
 }

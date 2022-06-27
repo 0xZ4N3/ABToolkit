@@ -4,7 +4,9 @@ function Invoke-MemoryPatching{
     Param(
     [string] $Get,
     [switch] $Run,
-    [switch] $Import
+    [switch] $Import,
+    [switch] $Info,
+    [switch] $Code
     )
     
     $Bypass = New-Object -TypeName PSObject
@@ -107,7 +109,10 @@ $a = 0
 
 
     if($Run){
+        Write-Host "Ejecutando $Name ..." -ForegroundColor Green
+        Start-Sleep 2
         $Bypass.RunScript()
+        Write-Host "$Name completado!" -ForegroundColor Green
         return
     }
 
@@ -132,10 +137,17 @@ $a = 0
         return
     }
 
-    Write-Host $Name
-    Write-Host "`n=========Descripción=========="
-    Write-Host $Description
-    Write-Host "`n===========Script============="
-    Write-Host $Script
+
+    if($Info){
+        Write-Host $Name -ForegroundColor DarkGreen -BackgroundColor Cyan
+        Write-Host $("=" * $Name.Length) -ForegroundColor Yellow
+        Write-Host $Description -ForegroundColor Blue
+    }
+
+
+    if($Code){
+        Write-Host $Script -ForegroundColor Cyan
+    }
+
 
 }

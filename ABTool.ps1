@@ -41,7 +41,7 @@ function Import-BypassLocally{
         Import-Module $path
     }
     else{
-        Write-Host "NO EXISTE $path"
+        Write-Error "No se encuentra $path"
     }
      
 }
@@ -90,7 +90,6 @@ function Show-Menu{
             "q" { exit }
             "b" { $back = $true }
             Default {
-                "Executing $($Options.Get_Item($Value).Name)"
                 $Options.Get_Item($Value).Action}
         }
 
