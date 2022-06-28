@@ -3,14 +3,14 @@ function Invoke-ABT{
 
 
     $Options = [ordered]@{
-        "l" = New-MenuOption -Name "Listar Bypasses" -Action {Show-Bypass}
+        "l" = New-MenuOption -Name "Listar Bypasses" -Action {Show-AllBypass}
         "i" = New-MenuOption -Name "Importar Bypasses" -Action {Import-Bypass}
         "?" = New-MenuOption -Name "Ayuda" -Action {Show-Help}
         }
     Show-Menu -Title "Menu Principal" -Options $Options    
 }
 
-function Show-Bypass{
+function Show-AllBypass{
 
     $BypassList = (Get-Command -Module ABToolBypass | Select-Object -Property Name).Name
 
@@ -18,15 +18,23 @@ function Show-Bypass{
     $i = 0
     foreach($Bypass in $BypassList){
         $i++
-        $BypassData = & $Bypass -Import
-        $Name = $BypassData.Name
-        $Action = $BypassData.Script
+        $Name = $Bypass
+        $Action = "Show-Bypass -Bypass $Bypass"
+        $Action = [scriptblock]::Create($Action)
         $Option = New-MenuOption -Name $Name -Action $Action
         $Options.Add("$i",$Option)
     }
 
     Show-Menu -Title "Lista de Bypass" -Options $Options -Prompt "ABT\Bypass"
 
+}
+
+function Show-Bypass {
+    param (
+        $Bypass
+    )
+    
+    Write-Host "Menu para $($Bypass)"
 }
 
 function Import-Bypass{
@@ -62,7 +70,7 @@ function Show-Title{
 function Show-Menu{
     param(
         [String] $Title,
-        [hashtable] $Options,
+        [System.Collections.Specialized.OrderedDictionary] $Options,
         [string] $Prompt = "ABT"
     )
     $back = $false
