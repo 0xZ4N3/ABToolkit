@@ -107,8 +107,8 @@ ${A} =  0
 
 
     if($Run){
-        Write-Host "Ejecutando $Name ..." -ForegroundColor Green
-        Start-Sleep 2
+        Write-Host "Ejecutando $Name..." -ForegroundColor Green
+        Start-Sleep 1
         $Bypass.RunScript()
         Write-Host "$Name completado!" -ForegroundColor Green
         return

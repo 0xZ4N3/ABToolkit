@@ -44,23 +44,13 @@ function Show-Bypass {
     }
 
     Show-Menu -Title $BypassData.Name -Options $Options -Prompt "ABT\Bypass\$Bypass"
-
-
-    $Options = [ordered]@{
-
-
-
-    }
-
-
-
-
-    Write-Host "Menu para $($Bypass)"
 }
 
 function Import-Bypass{
 
     Import-BypassLocally
+    $BypassList = (Get-Command -Module ABToolBypass | Select-Object -Property Name).Name
+    Write-Host "`nSe han importado los siguientes bypass: $BypassList`n"
 
 }
 
@@ -70,7 +60,7 @@ function Import-BypassLocally{
         Import-Module $path
     }
     else{
-        Write-Error "No se encuentra $path"
+        Write-Host "No se encuentra $path" -ForegroundColor Red
     }
      
 }
@@ -84,7 +74,28 @@ function Show-Help {
 
 function Show-Title{
 
-    Write-Host "AMSI BYPASS" -ForegroundColor Green
+$Title = @"
+
+
+ ________  ________  _________  ________  ________  ___          
+|\   __  \|\   __  \|\___   ___\\   __  \|\   __  \|\  \         
+\ \  \|\  \ \  \|\ /\|___ \  \_\ \  \|\  \ \  \|\  \ \  \        
+ \ \   __  \ \   __  \   \ \  \ \ \  \\\  \ \  \\\  \ \  \       
+  \ \  \ \  \ \  \|\  \   \ \  \ \ \  \\\  \ \  \\\  \ \  \____  
+   \ \__\ \__\ \_______\   \ \__\ \ \_______\ \_______\ \_______\
+    \|__|\|__|\|_______|    \|__|  \|_______|\|_______|\|_______|
+                                                                 
+    Tool: ABTool (AMSI Bypass Tool)                                                             
+    Author: Sergio Corral
+    GitHub: https://github.com/0xZ4N3/AmsiBypassAlpha
+    Version: 0.1
+
+"@
+
+
+
+
+    Write-Host $Title -ForegroundColor Green
 
 }
 
@@ -98,6 +109,9 @@ function Show-Menu{
     while(!$back){
         Write-Host "`n`n$Title`n" -ForegroundColor Yellow
 
+        if($Options.count -eq 0){
+            Write-Host "`nNo se cargaron elementos`n" -ForegroundColor Red
+        }
 
         foreach($Option in $Options.GetEnumerator()){
             $Value = $Option.Value
