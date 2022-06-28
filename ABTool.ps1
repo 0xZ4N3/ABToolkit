@@ -1,6 +1,7 @@
 function Invoke-ABT{
     Show-Title
 
+    Show-Help
 
     $Options = [ordered]@{
         "l" = New-MenuOption -Name "Listar Bypasses" -Action {Show-AllBypass}
@@ -111,10 +112,10 @@ $Title = @"
    \ \__\ \__\ \_______\   \ \__\ \ \_______\ \_______\ \_______\
     \|__|\|__|\|_______|    \|__|  \|_______|\|_______|\|_______|
                                                                  
-    Tool: ABTool (AMSI Bypass Tool)                                                             
-    Author: Sergio Corral
-    GitHub: https://github.com/0xZ4N3/AmsiBypassAlpha
-    Version: 0.1
+Tool: ABTool (AMSI Bypass Tool)                                                             
+Author: Sergio Corral
+GitHub: https://github.com/0xZ4N3/AmsiBypassAlpha
+Version: 0.1
 
 "@
 
@@ -133,7 +134,9 @@ function Show-Menu{
     )
     $Selected = "q"
     while($true){
-        Write-Host "`n`n$Title`n" -ForegroundColor Yellow
+        Write-Host "`n`n$Title" -ForegroundColor Yellow
+        Write-Host $("-" * $Title.Length) -ForegroundColor Yellow
+        Write-Host
 
         if($Options.count -eq 0){
             Write-Host "`nNo se cargaron elementos`n" -ForegroundColor Red
@@ -156,7 +159,7 @@ function Show-Menu{
 
         $Value = $null
         while($Value.length -eq 0){
-            Write-Host "$Prompt> " -NoNewline
+            Write-Host "$Prompt> " -NoNewline -ForegroundColor DarkCyan
             $Value = Read-Host
         }
         
