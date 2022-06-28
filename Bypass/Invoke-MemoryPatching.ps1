@@ -11,7 +11,7 @@ function Invoke-MemoryPatching{
     
     $Bypass = New-Object -TypeName PSObject
     $Name = "Parcheo de memoria"
-    $Description = "Este bypass consiste en parchear la funcion 4ms1ScanBuff3r() en memoria de tal forma que AMSI siempre devuelva que el contenido no es malicioso. Esta version del bypass de parcheo de memoria fur creado por Paul Laîné (@am0nsec), basandose en el bypass original de rasta-rouse"
+    $Description = "Este bypass consiste en parchear la funcion 4ms1ScanBuff3r() en memoria de tal forma que AMSI siempre devuelva que el contenido no es malicioso. Esta version del bypass de parcheo de memoria fue creada por Paul Laîné (@am0nsec), basandose en el bypass original de rasta-rouse"
     $Script = {
         Write-Host "-- AMSI Patch"
 Write-Host "-- Paul Laîné (@am0nsec)"

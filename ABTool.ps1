@@ -33,8 +33,8 @@ function Show-Bypass {
     )
 
     $BypassData = & $Bypass -Import
-    $ShowInfo = [scriptblock]::Create("$Bypass -Info")
-    $ShowCode = [scriptblock]::Create("$Bypass -Code")
+    $ShowInfo = [scriptblock]::Create("Write-Host; $Bypass -Info")
+    $ShowCode = [scriptblock]::Create("Write-Host; $Bypass -Code")
     $Execute = [scriptblock]::Create("$Bypass -Run")
 
     $Options = [ordered]@{
@@ -67,7 +67,32 @@ function Import-BypassLocally{
 
 function Show-Help {
     
-    Write-Host "AYUDA DE LA HERRAMIENTA"
+    $Ayuda = @"
+
+AYUDA
+Para seleccionar una opción es necesario escribir su clave (caracter o numero situado a la izquiera) y presionar Enter
+De forma adicional a las opciones mostradas por pantalla, exiten las siguientes:
+
+"@
+
+    $HelpOptions = [ordered]@{
+        "[q,b]" = "Retroceder/Salir del menu actual"
+        "?" = "Mostrar ayuda"
+        "clear" = "Limpiar la terminal"
+    } 
+
+    Write-Host $Ayuda -ForegroundColor Magenta
+
+    foreach($HelpOption in $HelpOptions.GetEnumerator()){
+        $HelpKey = $HelpOption.Key
+        $HelpValue = $HelpOption.Value
+        Write-Host "$HelpKey" -NoNewline -ForegroundColor DarkMagenta
+        Write-Host "`t`t-->`t`t" -NoNewline -ForegroundColor Gray
+        Write-Host $HelpValue -ForegroundColor Magenta
+    }
+
+
+    
 
 }
 
@@ -116,7 +141,8 @@ function Show-Menu{
         foreach($Option in $Options.GetEnumerator()){
             $Key = $Option.Key
             $Name = $Option.Value.Name
-            Write-Host "$Key) $Name"
+            Write-Host "$Key) " -NoNewline -ForegroundColor DarkCyan
+            Write-Host $Name
         }
 
         write-host
@@ -137,6 +163,8 @@ function Show-Menu{
         switch ($Value) {
             "q" { exit }
             "b" { exit }
+            "?" {Show-Help}
+            "clear" {Clear-Host}
             Default {
                 $Selected = $Options.Get_Item($Value)
                 $Selected.Action}
