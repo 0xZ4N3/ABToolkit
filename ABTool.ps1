@@ -105,8 +105,8 @@ function Show-Menu{
         [System.Collections.Specialized.OrderedDictionary] $Options,
         [string] $Prompt = "ABT"
     )
-    $back = $false
-    while(!$back){
+    $Selected = "q"
+    while($true){
         Write-Host "`n`n$Title`n" -ForegroundColor Yellow
 
         if($Options.count -eq 0){
@@ -114,13 +114,18 @@ function Show-Menu{
         }
 
         foreach($Option in $Options.GetEnumerator()){
-            $Value = $Option.Value
             $Key = $Option.Key
             $Name = $Option.Value.Name
             Write-Host "$Key) $Name"
         }
 
         write-host
+
+        
+        if($null -eq $Selected){
+            Write-Host "No se reconoce la opción: $Value" -ForegroundColor Red
+            Write-Host
+        }
 
         $Value = $null
         while($Value.length -eq 0){
@@ -131,9 +136,10 @@ function Show-Menu{
 
         switch ($Value) {
             "q" { exit }
-            "b" { $back = $true }
+            "b" { exit }
             Default {
-                $Options.Get_Item($Value).Action}
+                $Selected = $Options.Get_Item($Value)
+                $Selected.Action}
         }
 
 
