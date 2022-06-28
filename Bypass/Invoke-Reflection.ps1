@@ -2,9 +2,11 @@ function Invoke-Reflection{
     
     [CmdletBinding()]
     Param(
-    [string] $Get,
-    [switch] $Run,
-    [switch] $Import
+        [string] $Get,
+        [switch] $Run,
+        [switch] $Import,
+        [switch] $Info,
+        [switch] $Code
     )
 
     $Bypass = New-Object -TypeName PSObject
@@ -49,7 +51,7 @@ function Invoke-Reflection{
 
 
     if($Info){
-        Write-Host $Name -ForegroundColor DarkGreen -BackgroundColor Cyan
+        Write-Host $Name -ForegroundColor DarkGreen
         Write-Host $("=" * $Name.Length) -ForegroundColor Yellow
         Write-Host $Description -ForegroundColor Blue
     }

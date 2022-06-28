@@ -24,16 +24,37 @@ function Show-AllBypass{
         $Option = New-MenuOption -Name $Name -Action $Action
         $Options.Add("$i",$Option)
     }
-
     Show-Menu -Title "Lista de Bypass" -Options $Options -Prompt "ABT\Bypass"
-
 }
 
 function Show-Bypass {
     param (
         $Bypass
     )
-    
+
+    $BypassData = & $Bypass -Import
+    $ShowInfo = [scriptblock]::Create("$Bypass -Info")
+    $ShowCode = [scriptblock]::Create("$Bypass -Code")
+    $Execute = [scriptblock]::Create("$Bypass -Run")
+
+    $Options = [ordered]@{
+        "i" = New-MenuOption -Name "Información del bypass" -Action $ShowInfo
+        "c" = New-MenuOption -Name "Mostrar código del bypass" -Action $ShowCode
+        "e" = New-MenuOption -Name "Ejecutar bypass" -Action $Execute
+    }
+
+    Show-Menu -Title $BypassData.Name -Options $Options -Prompt "ABT\Bypass\$Bypass"
+
+
+    $Options = [ordered]@{
+
+
+
+    }
+
+
+
+
     Write-Host "Menu para $($Bypass)"
 }
 

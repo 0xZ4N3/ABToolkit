@@ -139,7 +139,7 @@ $a = 0
 
 
     if($Info){
-        Write-Host $Name -ForegroundColor DarkGreen -BackgroundColor Cyan
+        Write-Host $Name -ForegroundColor DarkGreen
         Write-Host $("=" * $Name.Length) -ForegroundColor Yellow
         Write-Host $Description -ForegroundColor Blue
     }
