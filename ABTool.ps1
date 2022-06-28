@@ -79,6 +79,7 @@ De forma adicional a las opciones mostradas por pantalla, exiten las siguientes:
         "[q,b]" = "Retroceder/Salir del menu actual"
         "?" = "Mostrar ayuda"
         "clear" = "Limpiar la terminal"
+        "home" = "Volver al menu principal"
     } 
 
     Write-Host $Ayuda -ForegroundColor Magenta
@@ -165,6 +166,7 @@ function Show-Menu{
             "b" { exit }
             "?" {Show-Help}
             "clear" {Clear-Host}
+            "home" {Invoke-ABT}
             Default {
                 $Selected = $Options.Get_Item($Value)
                 $Selected.Action}
