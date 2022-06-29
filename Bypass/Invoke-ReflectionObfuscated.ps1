@@ -54,15 +54,17 @@ function Invoke-ReflectionObfuscated{
 
 
     if($Info){
-        Write-Host $Name -ForegroundColor DarkGreen
-        Write-Host $("=" * $Name.Length) -ForegroundColor Yellow
-        Write-Host $Description -ForegroundColor Blue
+        Write-Host $Name -ForegroundColor DarkYellow
+        Write-Host $("=" * $Host.UI.RawUI.WindowSize.Width) -ForegroundColor Yellow
+        Write-Host $Description
+        Write-Host $("=" * $Host.UI.RawUI.WindowSize.Width) -ForegroundColor Yellow
     }
 
 
     if($Code){
         Write-Host $Script -ForegroundColor Cyan
     }
+
 
 
 

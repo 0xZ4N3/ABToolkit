@@ -44,7 +44,7 @@ function Show-Bypass {
         "e" = New-MenuOption -Name "Ejecutar bypass" -Action $Execute
     }
 
-    Show-Menu -Title $BypassData.Name -Options $Options -Prompt "ABT\Bypass\$Bypass"
+    Show-Menu -Title "Opciones $($BypassData.Name)" -Options $Options -Prompt "ABT\Bypass\$Bypass"
 }
 
 function Import-Bypass{
