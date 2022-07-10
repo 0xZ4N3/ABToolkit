@@ -83,14 +83,14 @@ De forma adicional a las opciones mostradas por pantalla, exiten las siguientes:
         "home" = "Volver al menu principal"
     } 
 
-    Write-Host $Ayuda -ForegroundColor Magenta
+    Write-Host $Ayuda -ForegroundColor Yellow
 
     foreach($HelpOption in $HelpOptions.GetEnumerator()){
         $HelpKey = $HelpOption.Key
         $HelpValue = $HelpOption.Value
-        Write-Host "$HelpKey" -NoNewline -ForegroundColor DarkMagenta
+        Write-Host "$HelpKey" -NoNewline -ForegroundColor Yellow
         Write-Host "`t`t-->`t`t" -NoNewline -ForegroundColor Gray
-        Write-Host $HelpValue -ForegroundColor Magenta
+        Write-Host $HelpValue -ForegroundColor Yellow
     }
 
 
