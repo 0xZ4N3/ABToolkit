@@ -4,8 +4,8 @@ function Invoke-ABT{
     Show-Help
 
     $Options = [ordered]@{
-        "l" = New-MenuOption -Name "Listar Bypasses" -Action {Show-AllBypass}
-        "i" = New-MenuOption -Name "Importar Bypasses" -Action {Import-Bypass}
+        "l" = New-MenuOption -Name "Listar Bypass" -Action {Show-AllBypass}
+        "i" = New-MenuOption -Name "Importar Bypass" -Action {Import-Bypass}
         "?" = New-MenuOption -Name "Ayuda" -Action {Show-Help}
         }
     Show-Menu -Title "Menu Principal" -Options $Options    
