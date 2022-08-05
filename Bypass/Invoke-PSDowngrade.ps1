@@ -11,7 +11,7 @@ function Invoke-PSDowngrade{
     
     $Bypass = New-Object -TypeName PSObject
     $Name = "Downgrade de PowerShell"
-    $Description = "Este bypass consiste en usar la versión 2 de PowerShell, la cual no es compatible con AMSI, de tal forma que el contenido no es enviado al proveedor antimalware"
+    $Description = "Este bypass consiste en usar la versión 2 de PowerShell, la cual no es compatible con AMSI, de tal forma que el contenido no es enviado al proveedor de AMSI. En el caso de este bypass en vez de anular AMSI en la sesión de PowerShell actual, se abre una nueva."
     $Script = {powershell -v 2}
 
 
